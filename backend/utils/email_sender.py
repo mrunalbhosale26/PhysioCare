@@ -1,3 +1,8 @@
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
 import smtplib
 from email.message import EmailMessage
 
@@ -6,8 +11,9 @@ def send_email(data, type='enquiry'):
     doctor_email = "mrunalbhosale260407@gmail.com"
 
     # Your Gmail details (sender)
-    sender_email = "mrunalbhosale260407@gmail.com"
-    sender_password = "omyvxloqhhlmcnlv"
+    sender_email = os.getenv("EMAIL_ADDRESS")
+    sender_password = os.getenv("EMAIL_PASSWORD")
+
     
     # Create message for doctor
     doctor_msg = EmailMessage()

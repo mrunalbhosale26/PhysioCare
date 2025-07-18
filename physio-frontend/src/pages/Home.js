@@ -1,4 +1,4 @@
-// /src/pages/Home.js
+
 import React from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -6,13 +6,13 @@ import TestimonialCarousel from "../components/TestimonialCarousel";
 
 export default function Home() {
   return (
-    <div className="bg-purple-50 text-gray-800 min-h-screen flex flex-col justify-between">
+    <div className = "bg-gradient-to-b from-purple-50 via-purple-100 to-purple-200 text-gray-800 min-h-screen flex flex-col justify-between">
       <Navbar />
 
       <main className="max-w-6xl mx-auto px-6 py-10 space-y-16">
 
         {/* Hero Section */}
-        <section className="relative bg-purple-200 rounded-2xl overflow-hidden shadow-md">
+        <section className="relative rounded-2xl overflow-hidden shadow-xl">
           <img
             src="/images/hero.jpg"
             alt="Physiotherapy"
@@ -28,7 +28,7 @@ export default function Home() {
         </section>
 
         {/* Note from Doctor */}
-        <section className="bg-purple-200 rounded-xl p-6 shadow-md border border-purple-300">
+        <section className="bg-purple-100 rounded-xl p-6 shadow-md border border-purple-300 backdrop-blur-sm">
           <h2 className="text-xl font-semibold text-purple-900 mb-4">A Note from the Doctor</h2>
           <p className="text-gray-900 text-base">
             "Healing is more than just treating pain. It’s about understanding your journey,
@@ -80,7 +80,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Testimonials Carousel Section in Card */}
+        {/* Testimonials Section */}
         <section className="bg-white rounded-xl shadow-lg border border-purple-300 p-6 md:p-10">
           <h2 className="text-3xl font-bold text-purple-900 text-center mb-6">What Our Patients Say</h2>
           <TestimonialCarousel />

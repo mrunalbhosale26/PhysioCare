@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 
 export default function About() {
   return (
-    <>
+    <div className="bg-purple-50 text-gray-800 min-h-screen flex flex-col justify-between relative">
       <Navbar />
       <div className="bg-purple-50 py-16 min-h-screen">
         <div className="container mx-auto px-4 space-y-10 max-w-5xl">
@@ -65,6 +65,6 @@ export default function About() {
         </div>
       </div>
       <Footer />
-    </>
+    </div>
   );
 }

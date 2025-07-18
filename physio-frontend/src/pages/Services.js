@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -61,19 +62,20 @@ export default function Services() {
   ];
 
   return (
-    <div className="bg-purple-50 text-gray-800 min-h-screen flex flex-col justify-between">
+    
+    <div className = "bg-purple-50 text-gray-800 min-h-screen flex flex-col justify-between relative">
       <Navbar />
 
-      <main className="max-w-6xl mx-auto px-6 py-10">
+      <main className="max-w-6xl mx-auto px-4 py-12">
         <h2 className="text-3xl font-bold text-purple-800 text-center mb-10">
           Our Physiotherapy Services at Home
         </h2>
 
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {services.map((service, index) => (
             <div
               key={index}
-              className="bg-white border border-purple-200 rounded-2xl shadow-md hover:shadow-xl hover:scale-[1.02] transition-transform duration-300"
+              className="bg-white border border-purple-200 rounded-2xl shadow-md hover:shadow-xl hover:scale-[1.02] transition-all duration-300 overflow-hidden"
             >
               <img
                 src={service.image}
@@ -84,7 +86,10 @@ export default function Services() {
                 <h3 className="text-xl font-semibold text-purple-800">
                   {service.title}
                 </h3>
-                <p className="text-sm text-purple-600 cursor-pointer hover:underline" onClick={() => toggleReadMore(index)}>
+                <p
+                  onClick={() => toggleReadMore(index)}
+                  className="text-sm text-purple-600 cursor-pointer hover:underline"
+                >
                   {openIndex === index ? "Hide Details ▲" : "Click to Read More ▼"}
                 </p>
                 {openIndex === index && (
