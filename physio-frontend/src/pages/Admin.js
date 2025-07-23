@@ -5,11 +5,11 @@ export default function Admin() {
   const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/enquiries")
+    fetch("https://physiocare-backend.onrender.com/api/enquiries")
       .then((res) => res.json())
       .then((data) => setEnquiries(data || []));
 
-    fetch("http://localhost:5000/api/bookings")
+    fetch("https://physiocare-backend.onrender.com/api/bookings")
       .then((res) => res.json())
       .then((data) => setBookings(data || []));
   }, []);
