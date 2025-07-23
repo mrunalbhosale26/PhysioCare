@@ -35,6 +35,7 @@ __pycache__/
 
 # Env files
 **/*.env
+backend/.env
 
 # SQLite DB
 *.db
