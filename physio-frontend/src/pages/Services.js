@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-import { FaHeartbeat, FaUserMd, FaHome, FaRunning, FaBalanceScaleLeft, FaBone, FaPlusCircle } from "react-icons/fa";
-import { MdElectricalServices, MdBackHand } from "react-icons/md";
+import { FaPlusCircle } from "react-icons/fa";
 
 export default function Services() {
   const [expandedIndex, setExpandedIndex] = useState(null);
 
   const services = [
     {
-      icon: <MdBackHand size={24} className="text-purple-600" />,
       title: "Back Pain Relief",
       description: "We address lower and upper back pain caused by poor posture, disc issues, or muscle strain.",
       treatments: [
@@ -20,7 +18,6 @@ export default function Services() {
       image: "/images/back-pain.jpg",
     },
     {
-      icon: <FaBone size={24} className="text-purple-600" />,
       title: "Joint Mobilization",
       description: "Improves flexibility and reduces stiffness in knees, shoulders, elbows, or hips.",
       treatments: [
@@ -31,7 +28,6 @@ export default function Services() {
       image: "/images/joint-mobilization.jpg",
     },
     {
-      icon: <MdElectricalServices size={24} className="text-purple-600" />,
       title: "Electrotherapy",
       description: "Used for pain relief, inflammation control, and muscle stimulation.",
       treatments: [
@@ -42,16 +38,7 @@ export default function Services() {
       image: "/images/electrotherapy.jpg",
     },
     {
-      // Senior Citizen Physiotherapy fixed spacing
-      icon: <FaUserMd size={24} className="text-purple-600" />,
-      title: (
-        <span className="flex items-center">
-          <span style={{ width: 24, display: "inline-block" }} className="text-purple-600">
-            <FaUserMd size={24} />
-          </span>
-          <span style={{ marginLeft: 8 }}>Senior Citizen Physiotherapy</span>
-        </span>
-      ),
+      title: "Senior Citizen Physiotherapy",
       description: "Personalized therapy for seniors focusing on balance, coordination, and mobility.",
       treatments: [
         "Fall prevention",
@@ -62,15 +49,7 @@ export default function Services() {
       image: "/images/senior-physio.jpg",
     },
     {
-      icon: <FaHome size={24} className="text-purple-600" />,
-      title: (
-        <span className="flex items-center">
-          <span style={{ width: 24, display: "inline-block" }} className="text-purple-600">
-            <FaHome size={24} />
-          </span>
-          <span style={{ marginLeft: 8 }}>Home Visit Service</span>
-        </span>
-      ),
+      title: "Home Visit Service",
       description: "We bring physiotherapy to your doorstep with all essential portable equipment.",
       treatments: [
         "TENS",
@@ -81,16 +60,7 @@ export default function Services() {
       image: "/images/home-visit.jpg",
     },
     {
-      // Post-Surgical Rehabilitation fixed spacing
-      icon: <FaHeartbeat size={24} className="text-purple-600" />,
-      title: (
-        <span className="flex items-center">
-          <span style={{ width: 24, display: "inline-block" }} className="text-purple-600">
-            <FaHeartbeat size={24} />
-          </span>
-          <span style={{ marginLeft: 8 }}>Post-Surgical Rehabilitation</span>
-        </span>
-      ),
+      title: "Post-Surgical Rehabilitation",
       description: "Regain strength and mobility after orthopedic or neurological surgeries.",
       treatments: [
         "Scar massage",
@@ -101,15 +71,7 @@ export default function Services() {
       image: "/images/post-surgery.jpg",
     },
     {
-      icon: <FaRunning size={24} className="text-purple-600" />,
-      title: (
-        <span className="flex items-center">
-          <span style={{ width: 24, display: "inline-block" }} className="text-purple-600">
-            <FaRunning size={24} />
-          </span>
-          <span style={{ marginLeft: 8 }}>Sports Injury Recovery</span>
-        </span>
-      ),
+      title: "Sports Injury Recovery",
       description: "Quick recovery from sprains, strains, and sports injuries.",
       treatments: [
         "RICE therapy",
@@ -121,16 +83,7 @@ export default function Services() {
       image: "/images/sports-injury.jpg",
     },
     {
-      // Balance & Gait Training fixed spacing
-      icon: <FaBalanceScaleLeft size={24} className="text-purple-600" />,
-      title: (
-        <span className="flex items-center">
-          <span style={{ width: 24, display: "inline-block" }} className="text-purple-600">
-            <FaBalanceScaleLeft size={24} />
-          </span>
-          <span style={{ marginLeft: 8 }}>Balance & Gait Training</span>
-        </span>
-      ),
+      title: "Balance & Gait Training",
       description: "Improves walking patterns and reduces risk of falls in all age groups.",
       treatments: [
         "Gait correction",
@@ -162,19 +115,12 @@ export default function Services() {
               <div className="flex flex-col items-center text-center">
                 <img
                   src={service.image}
-                  alt={typeof service.title === "string" ? service.title : ""}
+                  alt={service.title}
                   className="w-full h-48 object-cover rounded-lg mb-4 mt-2"
                 />
 
-                <h3 className="text-2xl font-semibold text-purple-900 mb-2 flex items-center justify-center gap-2">
-                  {typeof service.title === "string" ? (
-                    <>
-                      <span>{service.icon}</span>
-                      {service.title}
-                    </>
-                  ) : (
-                    service.title
-                  )}
+                <h3 className="text-2xl font-semibold text-purple-900 mb-2">
+                  {service.title}
                 </h3>
 
                 <p className="text-gray-600 mb-4">{service.description}</p>
