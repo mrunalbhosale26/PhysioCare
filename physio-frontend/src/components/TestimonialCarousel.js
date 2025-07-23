@@ -1,45 +1,83 @@
-import React from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import React, { useState, useEffect } from "react";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const testimonials = [
   {
-    image: "/images/user1.jpg",
-    name: "Riya Sharma.",
-    review: "Amazing home visit service! My back pain is gone.",
-  },
-  {
+    name: "Amit Sharma",
+    message:
+      "The physiotherapy sessions at home were a blessing! I recovered faster and felt truly cared for.",
     image: "/images/user2.jpg",
-    name: "Amit Sinha.",
-    review: "Very professional and friendly physiotherapist.",
   },
   {
+    name: "Priya Desai",
+    message:
+      "Very professional and compassionate treatment. Highly recommended for anyone needing physio at home!",
+    image: "/images/user1.jpg",
+  },
+  {
+    name: "Rahul Mehta",
+    message:
+      "I was suffering from back pain for months. Thanks to Dr. Singh, I’m finally pain-free.",
     image: "/images/user3.jpg",
-    name: "Shreyas Bhosale.",
-    review: "Very professional and friendly physiotherapist.",
   },
 ];
 
 export default function TestimonialCarousel() {
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 600,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Auto-slide every 5 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const next = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
   };
 
+  const prev = () => {
+    setCurrentIndex(
+      (prevIndex) => (prevIndex - 1 + testimonials.length) % testimonials.length
+    );
+  };
+
+  const { name, message, image } = testimonials[currentIndex];
+
   return (
-    <Slider {...settings}>
-      {testimonials.map((t, i) => (
-        <div key={i} className="bg-white p-6 rounded-xl shadow-md m-4 text-center">
-          <img src={t.image} alt={t.name} className="mx-auto h-24 w-24 rounded-full mb-4" />
-          <p className="text-purple-700 font-semibold">{t.name}</p>
-          <p className="text-gray-700 italic">"{t.review}"</p>
+    <div className="relative w-full max-w-3xl mx-auto px-4 py-10">
+      <div className="bg-purple-50 rounded-xl p-6 shadow-md text-center border border-purple-200 transition-all duration-500">
+        <div className="flex justify-center mb-4">
+          <img
+            src={image}
+            alt={name}
+            className="w-20 h-20 rounded-full object-cover border-4 border-purple-300"
+          />
         </div>
-      ))}
-    </Slider>
+        <p className="text-lg text-gray-800 mb-4 italic">“{message}”</p>
+        <h3 className="text-purple-900 font-semibold text-base">— {name}</h3>
+      </div>
+
+      {/* Navigation Arrows */}
+      <div className="absolute top-1/2 -translate-y-1/2 left-2 sm:left-0">
+        <button
+          onClick={prev}
+          className="bg-purple-200 hover:bg-purple-300 text-purple-800 rounded-full p-2 shadow-md transition"
+          aria-label="Previous testimonial"
+        >
+          <FaChevronLeft />
+        </button>
+      </div>
+      <div className="absolute top-1/2 -translate-y-1/2 right-2 sm:right-0">
+        <button
+          onClick={next}
+          className="bg-purple-200 hover:bg-purple-300 text-purple-800 rounded-full p-2 shadow-md transition"
+          aria-label="Next testimonial"
+        >
+          <FaChevronRight />
+        </button>
+      </div>
+    </div>
   );
 }

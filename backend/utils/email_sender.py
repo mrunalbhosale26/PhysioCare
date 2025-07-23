@@ -1,21 +1,15 @@
 import os
 from dotenv import load_dotenv
-
-load_dotenv()
-
 import smtplib
 from email.message import EmailMessage
 
-def send_email(data, type='enquiry'):
-    # Doctor's email (receiver of submissions)
-    doctor_email = "mrunalbhosale260407@gmail.com"
+load_dotenv()
 
-    # Your Gmail details (sender)
+def send_email(data, type='enquiry'):
     sender_email = os.getenv("EMAIL_ADDRESS")
     sender_password = os.getenv("EMAIL_PASSWORD")
+    doctor_email = "mrunalbhosale260407@gmail.com"
 
-    
-    # Create message for doctor
     doctor_msg = EmailMessage()
     doctor_msg['Subject'] = f"New {type.capitalize()} Received"
     doctor_msg['From'] = sender_email
@@ -36,27 +30,24 @@ Name: {data['name']}
 Email: {data['email']}
 Phone: {data['phone']}
 Address: {data['address']}
-Location: {data['location']}
-Issue: {data['issue']}
-Treatment: {data['treatment']}
+Location: {data.get('location','')}
+Issue: {data.get('issue','')}
+Treatment: {data.get('treatment','')}
 Date: {data['date']}
 Time: {data['time']}
 """
     doctor_msg.set_content(content)
 
-    # Create message for user confirmation
     user_msg = EmailMessage()
     user_msg['Subject'] = f"Thanks for your {type} submission!"
     user_msg['From'] = sender_email
     user_msg['To'] = data['email']
-    user_msg.set_content(
-        f"""Hi {data['name']},
+    user_msg.set_content(f"""Hi {data['name']},
 
 Thanks for submitting your {type}. We have received your details and will contact you shortly.
 
 – PhysioCare Team
-"""
-    )
+""")
 
     try:
         with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:

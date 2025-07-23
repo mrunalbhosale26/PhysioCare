@@ -6,12 +6,14 @@ from utils.email_sender import send_email
 app = Flask(__name__)
 CORS(app)
 
-# Database setup
+# ========================
+# ✅ Initialize Database
+# ========================
 def init_db():
     conn = sqlite3.connect('physio.db')
     c = conn.cursor()
-    
-    # Create enquiries table if not exists
+
+    # Create enquiries table
     c.execute('''
         CREATE TABLE IF NOT EXISTS enquiries (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -22,7 +24,7 @@ def init_db():
         )
     ''')
 
-    # Update bookings table to remove 'treatment'
+    # Create bookings table
     c.execute('''
         CREATE TABLE IF NOT EXISTS bookings (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -42,46 +44,56 @@ def init_db():
 
 init_db()
 
-# Handle Enquiry form
+# ========================
+# ✅ Handle Enquiry Form
+# ========================
 @app.route('/api/enquiry', methods=['POST'])
 def enquiry():
     data = request.get_json()
     try:
         conn = sqlite3.connect('physio.db')
         c = conn.cursor()
-        c.execute("INSERT INTO enquiries (name, email, phone, message) VALUES (?, ?, ?, ?)",
-                  (data['name'], data['email'], data['phone'], data['message']))
+        c.execute("""
+            INSERT INTO enquiries (name, email, phone, message)
+            VALUES (?, ?, ?, ?)
+        """, (data['name'], data['email'], data['phone'], data['message']))
         conn.commit()
         conn.close()
 
-        send_email(data, type='enquiry')  # 👈 Send enquiry email
+        send_email(data, type='enquiry')  # ✅ Email on enquiry
         return jsonify({"success": True, "message": "Enquiry submitted successfully."})
     except Exception as e:
+        print("Error in /api/enquiry:", e)
         return jsonify({"success": False, "message": str(e)}), 500
 
-# Handle Booking form (without treatment field)
+# ========================
+# ✅ Handle Booking Form
+# ========================
 @app.route('/api/booking', methods=['POST'])
 def booking():
     data = request.get_json()
     try:
         conn = sqlite3.connect('physio.db')
         c = conn.cursor()
-        c.execute('''
+        c.execute("""
             INSERT INTO bookings (name, email, phone, address, location, issue, date, time)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-        ''', (
+        """, (
             data['name'], data['email'], data['phone'], data['address'],
             data['location'], data['issue'], data['date'], data['time']
         ))
         conn.commit()
         conn.close()
 
-        send_email(data, type='booking')  # 👈 Send booking email
+        send_email(data, type='booking')  # ✅ Email on booking
         return jsonify({"success": True, "message": "Booking submitted successfully."})
     except Exception as e:
+        print("Error in /api/booking:", e)
         return jsonify({"success": False, "message": str(e)}), 500
 
-# Get all enquiries
+# ========================
+# ✅ Fetch All Enquiries
+# ========================
 @app.route('/api/enquiries', methods=['GET'])
 def get_enquiries():
     conn = sqlite3.connect('physio.db')
@@ -92,7 +104,9 @@ def get_enquiries():
     conn.close()
     return jsonify([dict(row) for row in rows])
 
-# Get all bookings
+# ========================
+# ✅ Fetch All Bookings
+# ========================
 @app.route('/api/bookings', methods=['GET'])
 def get_bookings():
     conn = sqlite3.connect('physio.db')
@@ -103,5 +117,8 @@ def get_bookings():
     conn.close()
     return jsonify([dict(row) for row in rows])
 
+# ========================
+# ✅ Start Server
+# ========================
 if __name__ == '__main__':
     app.run(debug=True)

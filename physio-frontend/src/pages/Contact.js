@@ -1,7 +1,5 @@
-// src/pages/Contact.js
 import React, { useState } from "react";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+import { FaCheckCircle } from "react-icons/fa";
 
 export default function Contact() {
   const [enquiryData, setEnquiryData] = useState({
@@ -97,52 +95,61 @@ export default function Contact() {
   };
 
   return (
-    <div className="bg-gradient-to-br from-purple-50 via-purple-100 to-purple-200 text-gray-800 min-h-screen flex flex-col justify-between relative">
-      <Navbar />
-
+    <div className="bg-gradient-to-br from-purple-50 via-purple-100 to-purple-200 text-gray-800 min-h-screen flex flex-col justify-between relative px-4 sm:px-6 lg:px-8">
       {toast && (
-        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-green-600 text-white px-6 py-2 rounded-lg shadow-lg z-50 animate-bounce">
-          {toast}
+        <div className="fixed top-5 left-1/2 transform -translate-x-1/2 bg-green-600 text-white px-6 py-2 rounded-md shadow-lg z-50 animate-fadeIn flex items-center gap-2">
+          <FaCheckCircle />
+          <span>{toast}</span>
         </div>
       )}
 
-      <main className="max-w-5xl mx-auto py-12 px-6 space-y-12">
+      <main className="max-w-4xl mx-auto py-12 space-y-16 w-full">
         {/* Enquiry Form */}
-        <div className="bg-white border border-purple-200 rounded-2xl shadow-lg p-6 md:p-10">
-          <h2 className="text-2xl font-bold text-purple-800 mb-6">Enquiry Form</h2>
-          <form className="space-y-4" onSubmit={handleEnquirySubmit}>
+        <section className="bg-white rounded-3xl shadow-xl border border-purple-200 p-6 sm:p-10 w-full">
+          <h2 className="text-3xl font-bold text-purple-800 mb-6 text-center">
+            Enquiry Form
+          </h2>
+          <form onSubmit={handleEnquirySubmit} className="grid gap-5 w-full">
             {["name", "email", "phone"].map((field) => (
               <input
                 key={field}
                 type={field === "email" ? "email" : field === "phone" ? "tel" : "text"}
                 placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
                 value={enquiryData[field]}
-                onChange={(e) => setEnquiryData({ ...enquiryData, [field]: e.target.value })}
-                className="w-full p-3 border border-purple-100 rounded-md"
+                onChange={(e) =>
+                  setEnquiryData({ ...enquiryData, [field]: e.target.value })
+                }
+                className="w-full p-3 rounded-lg border border-purple-300 focus:ring-2 focus:ring-purple-400 transition outline-none"
+                required
               />
             ))}
             <textarea
               placeholder="Your Message / Doubt / Inquiry"
               value={enquiryData.message}
               onChange={(e) => setEnquiryData({ ...enquiryData, message: e.target.value })}
-              className="w-full p-3 border border-purple-100 rounded-md h-32"
+              className="w-full p-3 h-32 rounded-lg border border-purple-300 focus:ring-2 focus:ring-purple-400 transition outline-none"
+              required
             ></textarea>
             <button
               type="submit"
-              className="bg-purple-700 text-white px-6 py-2 rounded-md hover:bg-purple-800 transition"
+              className="w-full sm:w-auto px-8 py-3 bg-purple-700 text-white font-medium rounded-full hover:bg-purple-800 transition"
             >
               Submit Enquiry
             </button>
             {enquirySuccess && (
-              <p className="text-green-600 mt-2 text-sm">Thank you! We'll get back to you shortly.</p>
+              <p className="text-green-600 mt-2 text-sm text-center">
+                Thank you! We'll get back to you shortly.
+              </p>
             )}
           </form>
-        </div>
+        </section>
 
         {/* Booking Form */}
-        <div className="bg-white border border-purple-200 rounded-2xl shadow-lg p-6 md:p-10">
-          <h2 className="text-2xl font-bold text-purple-800 mb-6">Book Doctor for Home Visit</h2>
-          <form className="space-y-4" onSubmit={handleBookingSubmit}>
+        <section className="bg-white rounded-3xl shadow-xl border border-purple-200 p-6 sm:p-10 w-full">
+          <h2 className="text-3xl font-bold text-purple-800 mb-6 text-center">
+            Book Doctor for Home Visit
+          </h2>
+          <form onSubmit={handleBookingSubmit} className="grid gap-5 w-full">
             {["name", "email", "phone", "address", "location"].map((field) => (
               <input
                 key={field}
@@ -150,18 +157,22 @@ export default function Contact() {
                 placeholder={
                   field === "location"
                     ? "Google Location Link (optional)"
-                    : field.charAt(0).toUpperCase() + field.slice(1).replace(/([A-Z])/g, " $1")
+                    : field.charAt(0).toUpperCase() +
+                      field.slice(1).replace(/([A-Z])/g, " $1")
                 }
                 value={bookingData[field]}
-                onChange={(e) => setBookingData({ ...bookingData, [field]: e.target.value })}
-                className="w-full p-3 border border-purple-100 rounded-md"
+                onChange={(e) =>
+                  setBookingData({ ...bookingData, [field]: e.target.value })
+                }
+                className="w-full p-3 rounded-lg border border-purple-300 focus:ring-2 focus:ring-purple-400 transition outline-none"
+                required={field !== "location"} // location optional
               />
             ))}
 
             <select
               value={bookingData.issue}
               onChange={(e) => setBookingData({ ...bookingData, issue: e.target.value })}
-              className="w-full p-3 border border-purple-100 rounded-md"
+              className="w-full p-3 rounded-lg border border-purple-300 text-gray-700 focus:ring-2 focus:ring-purple-400 transition outline-none"
             >
               <option value="">Select Type of Issue (optional)</option>
               <option>Back Pain</option>
@@ -171,32 +182,37 @@ export default function Contact() {
               <option>Senior Care</option>
             </select>
 
-            <input
-              type="date"
-              value={bookingData.date}
-              onChange={(e) => setBookingData({ ...bookingData, date: e.target.value })}
-              className="w-full p-3 border border-purple-100 rounded-md"
-            />
-            <input
-              type="time"
-              value={bookingData.time}
-              onChange={(e) => setBookingData({ ...bookingData, time: e.target.value })}
-              className="w-full p-3 border border-purple-100 rounded-md"
-            />
+            <div className="grid sm:grid-cols-2 gap-4">
+              <input
+                type="date"
+                value={bookingData.date}
+                onChange={(e) => setBookingData({ ...bookingData, date: e.target.value })}
+                className="w-full p-3 rounded-lg border border-purple-300 focus:ring-2 focus:ring-purple-400 transition outline-none"
+                required
+              />
+              <input
+                type="time"
+                value={bookingData.time}
+                onChange={(e) => setBookingData({ ...bookingData, time: e.target.value })}
+                className="w-full p-3 rounded-lg border border-purple-300 focus:ring-2 focus:ring-purple-400 transition outline-none"
+                required
+              />
+            </div>
+
             <button
               type="submit"
-              className="bg-purple-700 text-white px-6 py-2 rounded-md hover:bg-purple-800 transition"
+              className="w-full sm:w-auto px-8 py-3 bg-purple-700 text-white font-medium rounded-full hover:bg-purple-800 transition"
             >
               Book Appointment
             </button>
             {bookingSuccess && (
-              <p className="text-green-600 mt-2 text-sm">Thank you! Your booking has been received.</p>
+              <p className="text-green-600 mt-2 text-sm text-center">
+                Thank you! Your booking has been received.
+              </p>
             )}
           </form>
-        </div>
+        </section>
       </main>
-
-      <Footer />
     </div>
   );
 }

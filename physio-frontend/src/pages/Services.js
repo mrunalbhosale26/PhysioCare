@@ -1,115 +1,160 @@
-
 import React, { useState } from "react";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+import { FaHeartbeat, FaUserMd, FaHome, FaRunning, FaBalanceScaleLeft, FaBone, FaPlusCircle } from "react-icons/fa";
+import { MdElectricalServices, MdBackHand } from "react-icons/md";
 
 export default function Services() {
-  const [openIndex, setOpenIndex] = useState(null);
-
-  const toggleReadMore = (index) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
+  const [expandedIndex, setExpandedIndex] = useState(null);
 
   const services = [
     {
+      icon: <MdBackHand size={24} className="text-purple-600" />,
       title: "Back Pain Relief",
       description: "We address lower and upper back pain caused by poor posture, disc issues, or muscle strain.",
-      treatment: "Manual therapy, posture correction, heat therapy, stretching, and strengthening exercises.",
+      treatments: [
+        "Manual therapy",
+        "Posture correction",
+        "Heat therapy",
+        "Stretching",
+        "Strengthening exercises"
+      ],
       image: "/images/back-pain.jpg",
     },
     {
+      icon: <FaBone size={24} className="text-purple-600" />,
       title: "Joint Mobilization",
       description: "Improves flexibility and reduces stiffness in knees, shoulders, elbows, or hips.",
-      treatment: "Gentle passive movements, range of motion exercises, and mobilization techniques.",
+      treatments: [
+        "Gentle passive movements",
+        "Range of motion exercises",
+        "Mobilization techniques"
+      ],
       image: "/images/joint-mobilization.jpg",
     },
     {
+      icon: <MdElectricalServices size={24} className="text-purple-600" />,
       title: "Electrotherapy",
       description: "Used for pain relief, inflammation control, and muscle stimulation.",
-      treatment: "TENS, IFT (Interferential Therapy), and Ultrasound therapy based on condition.",
+      treatments: [
+        "TENS",
+        "IFT (Interferential Therapy)",
+        "Ultrasound therapy"
+      ],
       image: "/images/electrotherapy.jpg",
     },
     {
+      icon: <FaUserMd size={24} className="text-purple-600" />,
       title: "Senior Citizen Physiotherapy",
       description: "Personalized therapy for seniors focusing on balance, coordination, and mobility.",
-      treatment: "Fall prevention, strengthening exercises, walking aid training, home safety evaluation.",
+      treatments: [
+        "Fall prevention",
+        "Strengthening exercises",
+        "Walking aid training",
+        "Home safety evaluation"
+      ],
       image: "/images/senior-physio.jpg",
     },
     {
+      icon: <FaHome size={24} className="text-purple-600" />,
       title: "Home Visit Service",
       description: "We bring physiotherapy to your doorstep with all essential portable equipment.",
-      treatment: "Customized sessions using TENS, weights, resistance bands, and hands-on treatment.",
+      treatments: [
+        "TENS",
+        "Weights",
+        "Resistance bands",
+        "Hands-on treatment"
+      ],
       image: "/images/home-visit.jpg",
     },
     {
+      icon: <FaHeartbeat size={24} className="text-purple-600" />,
       title: "Post-Surgical Rehabilitation",
       description: "Regain strength and mobility after orthopedic or neurological surgeries.",
-      treatment: "Scar massage, joint mobilization, strengthening, flexibility training.",
+      treatments: [
+        "Scar massage",
+        "Joint mobilization",
+        "Strengthening",
+        "Flexibility training"
+      ],
       image: "/images/post-surgery.jpg",
     },
     {
+      icon: <FaRunning size={24} className="text-purple-600" />,
       title: "Sports Injury Recovery",
       description: "Quick recovery from sprains, strains, and sports injuries.",
-      treatment: "RICE therapy, taping, agility drills, functional training, and rehab programs.",
+      treatments: [
+        "RICE therapy",
+        "Taping",
+        "Agility drills",
+        "Functional training",
+        "Rehab programs"
+      ],
       image: "/images/sports-injury.jpg",
     },
     {
+      icon: <FaBalanceScaleLeft size={24} className="text-purple-600" />,
       title: "Balance & Gait Training",
       description: "Improves walking patterns and reduces risk of falls in all age groups.",
-      treatment: "Gait correction, balance board, strengthening, and core activation.",
+      treatments: [
+        "Gait correction",
+        "Balance board",
+        "Strengthening",
+        "Core activation"
+      ],
       image: "/images/balance-gait.jpg",
     },
   ];
 
-  return (
-    
-    <div className = "bg-purple-50 text-gray-800 min-h-screen flex flex-col justify-between relative">
-      <Navbar />
+  const toggleExpand = (index) => {
+    setExpandedIndex(index === expandedIndex ? null : index);
+  };
 
-      <main className="max-w-6xl mx-auto px-4 py-12">
-        <h2 className="text-3xl font-bold text-purple-800 text-center mb-10">
-          Our Physiotherapy Services at Home
+  return (
+    <div className="bg-purple-50 min-h-screen flex flex-col justify-between">
+      <div className="py-16 px-4 max-w-7xl mx-auto">
+        <h2 className="text-4xl font-bold text-center text-purple-800 mb-10">
+          Our Services
         </h2>
 
-        <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((service, index) => (
             <div
               key={index}
-              className="bg-white border border-purple-200 rounded-2xl shadow-md hover:shadow-xl hover:scale-[1.02] transition-all duration-300 overflow-hidden"
+              className="bg-white rounded-2xl shadow-lg border border-purple-200 p-6 hover:shadow-2xl transition duration-300 transform hover:-translate-y-1"
             >
-              <img
-                src={service.image}
-                alt={service.title}
-                className="w-full h-48 object-cover rounded-t-2xl"
-              />
-              <div className="p-5 space-y-3">
-                <h3 className="text-xl font-semibold text-purple-800">
+              <div className="flex flex-col items-center text-center">
+                <img
+                  src={service.image}
+                  alt={service.title}
+                  className="w-full h-48 object-cover rounded-lg mb-4 mt-2"
+                />
+
+                <h3 className="text-2xl font-semibold text-purple-900 mb-2 flex items-center justify-center gap-2">
+                  <span>{service.icon}</span>
                   {service.title}
                 </h3>
-                <p
-                  onClick={() => toggleReadMore(index)}
-                  className="text-sm text-purple-600 cursor-pointer hover:underline"
+
+                <p className="text-gray-600 mb-4">{service.description}</p>
+
+                <button
+                  onClick={() => toggleExpand(index)}
+                  className="flex items-center text-purple-700 font-semibold hover:underline"
                 >
-                  {openIndex === index ? "Hide Details ▲" : "Click to Read More ▼"}
-                </p>
-                {openIndex === index && (
-                  <div className="text-sm text-gray-700 space-y-2">
-                    <p>{service.description}</p>
-                    <p>
-                      <span className="font-semibold text-purple-700">
-                        Treatment Includes:
-                      </span>{" "}
-                      {service.treatment}
-                    </p>
-                  </div>
+                  <FaPlusCircle className="mr-2" />
+                  {expandedIndex === index ? "Hide Details" : "Click to Read More"}
+                </button>
+
+                {expandedIndex === index && (
+                  <ul className="mt-4 list-disc text-left text-gray-700 pl-5 space-y-1">
+                    {service.treatments.map((treatment, i) => (
+                      <li key={i}>{treatment}</li>
+                    ))}
+                  </ul>
                 )}
               </div>
             </div>
           ))}
         </div>
-      </main>
-
-      <Footer />
+      </div>
     </div>
   );
 }
