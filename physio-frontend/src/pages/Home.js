@@ -39,7 +39,7 @@ export default function Home() {
         </section>
     
 {/* Why Choose Us */}
-<section className="px-4 py-10 sm:px-6 lg:px-8 bg-gray-50">
+<section className="bg-white rounded-2xl shadow-lg border border-purple-300 p-6 sm:p-10">
   <h2 className="text-3xl font-bold text-purple-900 mb-8 text-center">Why Choose Us</h2>
   <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
     {[
