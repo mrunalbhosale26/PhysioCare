@@ -6,14 +6,10 @@ from utils.email_sender import send_email
 app = Flask(__name__)
 CORS(app)
 
-# ========================
-# ✅ Initialize Database
-# ========================
 def init_db():
     conn = sqlite3.connect('physio.db')
     c = conn.cursor()
 
-    # Create enquiries table
     c.execute('''
         CREATE TABLE IF NOT EXISTS enquiries (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -24,7 +20,6 @@ def init_db():
         )
     ''')
 
-    # Create bookings table
     c.execute('''
         CREATE TABLE IF NOT EXISTS bookings (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -44,9 +39,11 @@ def init_db():
 
 init_db()
 
-# ========================
-# ✅ Handle Enquiry Form
-# ========================
+# ✅ Root route to avoid 404 on base URL
+@app.route('/')
+def index():
+    return jsonify({"message": "PhysioCare API is running."})
+
 @app.route('/api/enquiry', methods=['POST'])
 def enquiry():
     data = request.get_json()
@@ -60,15 +57,12 @@ def enquiry():
         conn.commit()
         conn.close()
 
-        send_email(data, type='enquiry')  # ✅ Email on enquiry
+        send_email(data, type='enquiry')
         return jsonify({"success": True, "message": "Enquiry submitted successfully."})
     except Exception as e:
         print("Error in /api/enquiry:", e)
         return jsonify({"success": False, "message": str(e)}), 500
 
-# ========================
-# ✅ Handle Booking Form
-# ========================
 @app.route('/api/booking', methods=['POST'])
 def booking():
     data = request.get_json()
@@ -85,15 +79,12 @@ def booking():
         conn.commit()
         conn.close()
 
-        send_email(data, type='booking')  # ✅ Email on booking
+        send_email(data, type='booking')
         return jsonify({"success": True, "message": "Booking submitted successfully."})
     except Exception as e:
         print("Error in /api/booking:", e)
         return jsonify({"success": False, "message": str(e)}), 500
 
-# ========================
-# ✅ Fetch All Enquiries
-# ========================
 @app.route('/api/enquiries', methods=['GET'])
 def get_enquiries():
     conn = sqlite3.connect('physio.db')
@@ -104,9 +95,6 @@ def get_enquiries():
     conn.close()
     return jsonify([dict(row) for row in rows])
 
-# ========================
-# ✅ Fetch All Bookings
-# ========================
 @app.route('/api/bookings', methods=['GET'])
 def get_bookings():
     conn = sqlite3.connect('physio.db')
@@ -117,8 +105,5 @@ def get_bookings():
     conn.close()
     return jsonify([dict(row) for row in rows])
 
-# ========================
-# ✅ Start Server
-# ========================
 if __name__ == '__main__':
     app.run(debug=True)
