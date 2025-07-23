@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { FaHeartbeat, FaUserMd, FaHome, FaRunning, FaBalanceScaleLeft, FaBone, FaPlusCircle } from "react-icons/fa";
 import { MdElectricalServices, MdBackHand } from "react-icons/md";
@@ -43,9 +42,9 @@ export default function Services() {
       image: "/images/electrotherapy.jpg",
     },
     {
+      // Senior Citizen Physiotherapy fixed spacing
       icon: <FaUserMd size={24} className="text-purple-600" />,
       title: (
-        // Fix spacing here for Senior Citizen Physiotherapy
         <span className="flex items-center">
           <span style={{ width: 24, display: "inline-block" }} className="text-purple-600">
             <FaUserMd size={24} />
@@ -65,7 +64,6 @@ export default function Services() {
     {
       icon: <FaHome size={24} className="text-purple-600" />,
       title: (
-        // Fix spacing for Home Visit Service
         <span className="flex items-center">
           <span style={{ width: 24, display: "inline-block" }} className="text-purple-600">
             <FaHome size={24} />
@@ -83,9 +81,9 @@ export default function Services() {
       image: "/images/home-visit.jpg",
     },
     {
+      // Post-Surgical Rehabilitation fixed spacing
       icon: <FaHeartbeat size={24} className="text-purple-600" />,
       title: (
-        // Fix spacing for Post-Surgical Rehabilitation
         <span className="flex items-center">
           <span style={{ width: 24, display: "inline-block" }} className="text-purple-600">
             <FaHeartbeat size={24} />
@@ -105,7 +103,6 @@ export default function Services() {
     {
       icon: <FaRunning size={24} className="text-purple-600" />,
       title: (
-        // Fix spacing for Sports Injury Recovery
         <span className="flex items-center">
           <span style={{ width: 24, display: "inline-block" }} className="text-purple-600">
             <FaRunning size={24} />
@@ -124,8 +121,16 @@ export default function Services() {
       image: "/images/sports-injury.jpg",
     },
     {
+      // Balance & Gait Training fixed spacing
       icon: <FaBalanceScaleLeft size={24} className="text-purple-600" />,
-      title: "Balance & Gait Training",
+      title: (
+        <span className="flex items-center">
+          <span style={{ width: 24, display: "inline-block" }} className="text-purple-600">
+            <FaBalanceScaleLeft size={24} />
+          </span>
+          <span style={{ marginLeft: 8 }}>Balance & Gait Training</span>
+        </span>
+      ),
       description: "Improves walking patterns and reduces risk of falls in all age groups.",
       treatments: [
         "Gait correction",
@@ -162,7 +167,6 @@ export default function Services() {
                 />
 
                 <h3 className="text-2xl font-semibold text-purple-900 mb-2 flex items-center justify-center gap-2">
-                  {/* Render icon and title only if title is string or JSX */}
                   {typeof service.title === "string" ? (
                     <>
                       <span>{service.icon}</span>
