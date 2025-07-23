@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { FaHeartbeat, FaUserMd, FaHome, FaRunning, FaBalanceScaleLeft, FaBone, FaPlusCircle } from "react-icons/fa";
 import { MdElectricalServices, MdBackHand } from "react-icons/md";
@@ -43,7 +44,15 @@ export default function Services() {
     },
     {
       icon: <FaUserMd size={24} className="text-purple-600" />,
-      title: "Senior Citizen Physiotherapy",
+      title: (
+        // Fix spacing here for Senior Citizen Physiotherapy
+        <span className="flex items-center">
+          <span style={{ width: 24, display: "inline-block" }} className="text-purple-600">
+            <FaUserMd size={24} />
+          </span>
+          <span style={{ marginLeft: 8 }}>Senior Citizen Physiotherapy</span>
+        </span>
+      ),
       description: "Personalized therapy for seniors focusing on balance, coordination, and mobility.",
       treatments: [
         "Fall prevention",
@@ -55,7 +64,15 @@ export default function Services() {
     },
     {
       icon: <FaHome size={24} className="text-purple-600" />,
-      title: "Home Visit Service",
+      title: (
+        // Fix spacing for Home Visit Service
+        <span className="flex items-center">
+          <span style={{ width: 24, display: "inline-block" }} className="text-purple-600">
+            <FaHome size={24} />
+          </span>
+          <span style={{ marginLeft: 8 }}>Home Visit Service</span>
+        </span>
+      ),
       description: "We bring physiotherapy to your doorstep with all essential portable equipment.",
       treatments: [
         "TENS",
@@ -67,7 +84,15 @@ export default function Services() {
     },
     {
       icon: <FaHeartbeat size={24} className="text-purple-600" />,
-      title: "Post-Surgical Rehabilitation",
+      title: (
+        // Fix spacing for Post-Surgical Rehabilitation
+        <span className="flex items-center">
+          <span style={{ width: 24, display: "inline-block" }} className="text-purple-600">
+            <FaHeartbeat size={24} />
+          </span>
+          <span style={{ marginLeft: 8 }}>Post-Surgical Rehabilitation</span>
+        </span>
+      ),
       description: "Regain strength and mobility after orthopedic or neurological surgeries.",
       treatments: [
         "Scar massage",
@@ -79,7 +104,15 @@ export default function Services() {
     },
     {
       icon: <FaRunning size={24} className="text-purple-600" />,
-      title: "Sports Injury Recovery",
+      title: (
+        // Fix spacing for Sports Injury Recovery
+        <span className="flex items-center">
+          <span style={{ width: 24, display: "inline-block" }} className="text-purple-600">
+            <FaRunning size={24} />
+          </span>
+          <span style={{ marginLeft: 8 }}>Sports Injury Recovery</span>
+        </span>
+      ),
       description: "Quick recovery from sprains, strains, and sports injuries.",
       treatments: [
         "RICE therapy",
@@ -124,13 +157,20 @@ export default function Services() {
               <div className="flex flex-col items-center text-center">
                 <img
                   src={service.image}
-                  alt={service.title}
+                  alt={typeof service.title === "string" ? service.title : ""}
                   className="w-full h-48 object-cover rounded-lg mb-4 mt-2"
                 />
 
                 <h3 className="text-2xl font-semibold text-purple-900 mb-2 flex items-center justify-center gap-2">
-                  <span>{service.icon}</span>
-                  {service.title}
+                  {/* Render icon and title only if title is string or JSX */}
+                  {typeof service.title === "string" ? (
+                    <>
+                      <span>{service.icon}</span>
+                      {service.title}
+                    </>
+                  ) : (
+                    service.title
+                  )}
                 </h3>
 
                 <p className="text-gray-600 mb-4">{service.description}</p>
